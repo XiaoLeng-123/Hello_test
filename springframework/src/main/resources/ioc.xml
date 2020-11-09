@@ -1,0 +1,189 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+       http://www.springframework.org/schema/util
+       http://www.springframework.org/schema/util/spring-util-4.0.xsd
+       http://www.springframework.org/schema/tx
+       http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context-4.0.xsd
+       http://www.springframework.org/schema/mvc
+       http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd"> 
+       
+	   
+
+
+	<!-- 
+		基本属性直接使用property标签即可
+		1、使用set赋值
+	 	2、使用构造器赋值
+		3、通过P名称空间赋值;防止标签重复
+		4、给各种类型赋值，复杂类型都在property体内赋值
+		5、parent继承别的对象信息；abstract的抽象bean只能被继承，不能创建对象实例
+		6、bean之间的创建顺序，是按照配置顺序来创建的；depends-on来改变创建顺序
+		7、bean的作用域，默认是单实例的，可以通过scope属性来改变作用域；
+			prototype：多实例（容器启动 默认不会创建多实例bean；在获取的时候创建，每次获取都会创建一个新的对象）；
+			singleton:单实例（在容器启动时，bean就已经被创建，单实例的对象就一个）；
+		
+	  -->
+
+
+	<!-- 1、set赋值 -->
+	<!-- <bean id="personEntity" class="com.ljc.spring.entity.PersonEntity">
+		<property name="id" value="1" />
+		<property name="lastname" value="小花" />
+		<property name="age" value="12" />
+	</bean>
+ -->
+
+	<!-- 2、构造器赋值 -->
+	<!-- <bean id="personEntity" class="com.ljc.spring.entity.PersonEntity">
+		<constructor-arg name="id" value="1" />
+		<constructor-arg name="lastname" value="小明" />
+		<constructor-arg name="age" value="13" />
+	</bean> -->
+
+	<!-- 3、P命名空间赋值，防止标签重复（需要先导入名称空间） -->
+	<bean id="personEntity" class="com.ljc.spring.entity.PersonEntity"
+	 p:lastname="晓东"
+	 p:age="15"></bean>
+
+	<!-- 4、给复杂类型赋值,复杂类型都在property体内赋值 （赋值为null）-->
+	<!-- <bean id="depementEntity" class="com.ljc.spring.entity.DepementEntity">
+		<property name="lastname">
+			<null></null>
+		</property>
+	</bean> -->
+	
+	<!-- 使用ref 引用 -->
+	<!-- <bean id="depementEntity" class="com.ljc.spring.entity.DepementEntity">
+		<property name="personEntity" ref="personEntity"></property>
+	</bean> -->
+	
+	<bean id="depementEntity" class="com.ljc.spring.entity.DepementEntity">
+		<property name="personEntity">
+			<bean class="com.ljc.spring.entity.PersonEntity">
+				<property name="id" value="4"></property>
+				<property name="lastname" value="honghong"></property>
+			</bean>
+		</property>
+	</bean>
+	
+	<!-- 内部bean的id对外使用无效 ；一个entry就是一个key/value-->
+	<bean id="depementEntity01" class="com.ljc.spring.entity.DepementEntity">
+		<property name="list">
+			<list>
+				<bean  id="personEntity01" class="com.ljc.spring.entity.PersonEntity">
+					<property name="id" value="4"></property>
+					<property name="lastname" value="honghong"></property>
+				</bean>
+				<ref bean="personEntity"/>
+			</list>
+		</property>
+		<property name="map">
+			<map>
+				<entry key="aa" value="15672"></entry>
+				<entry key="bb" value-ref="personEntity"></entry>
+				<entry key="cc">
+					<bean class="com.ljc.spring.entity.PersonEntity">
+						<property name="id" value="4"></property>
+						<property name="lastname" value="honghong"></property>
+					</bean>
+				</entry>
+			</map>
+		</property>
+	</bean>
+	
+	<util:map id="map">
+		<entry key="lastname" value="xiaolong"></entry>
+	</util:map>
+	
+	<util:list id="list">
+		<bean id="personEntity01" parent="personEntity"></bean>
+		<list></list>
+	</util:list>
+	
+	<!-- parent继承别的对象信息；abstract的抽象bean只能被继承，不能创建对象实例 -->
+	<bean id="personEntity02" class="com.ljc.spring.entity.PersonEntity" parent="personEntity" >
+		<property name="id" value="4"></property>
+		<property name="lastname" value="honghong"></property>
+	</bean>
+	
+	
+	<!-- bean之间的创建顺序，是按照配置顺序来创建的；depends-on来改变创建顺序 -->
+	<bean id="personEntity03" class="com.ljc.spring.entity.PersonEntity" parent="personEntity" >
+		<property name="id" value="4"></property>
+		<property name="lastname" value="honghong"></property>
+	</bean>
+	
+	<bean id="depementEntity03" class="com.ljc.spring.entity.DepementEntity" depends-on="personEntity03">
+		<property name="personEntity">
+			<bean class="com.ljc.spring.entity.PersonEntity">
+				<property name="id" value="4"></property>
+				<property name="lastname" value="honghong"></property>
+			</bean>
+		</property>
+	</bean>
+
+
+	<!-- 
+	scope属性改变bean的作用域；
+	prototype：多实例；
+	singleton:单实例；
+	request：web环境下，一次请求创建一次bean实例；
+	session同一次会话创建一次bean实例 -->
+	<bean id="personEntity04" class="com.ljc.spring.entity.PersonEntity" parent="personEntity" scope="">
+		<property name="id" value="4"></property>
+		<property name="lastname" value="honghong"></property>
+	</bean>
+	
+	
+	
+	<!-- 
+	1、静态工厂创建bean：工厂本身不用创建对象，都是通过静态方法调用；
+	2、实例工厂创建bean：工厂本身需要创建对象，然后通过工厂对象调方法创建；
+	3、创建带有生命周期的bean；
+	4、bean的后置处理器；
+	 -->
+	 
+	 
+	 <!-- 静态工厂;class指定静态工厂的全类名；factory-method指定静态工厂的方法 -->
+	<bean id="personEntity05" class="com.ljc.spring.factory.PersonStaticFactory" factory-method="getPerson">
+		
+	</bean>
+	
+	<!-- 实例工厂 -->
+	<!-- 创建实例工厂对象 -->
+	<bean id="personInstanceFactory" class="com.ljc.spring.factory.PersonInstanceFactory" ></bean>
+	<!-- 使用实例工厂对象创建所需的bean;
+	factory-bean是一个借口，只要实现factory-bean接口，spring默认它就是一个工厂 -->
+	<bean id="personEntity07" class="com.ljc.spring.factory.PersonInstanceFactory"
+	 factory-bean="personInstanceFactory" factory-method="getPerson"></bean>
+	 
+	 
+	 
+	 <!-- 实现FactoryBean接口，创建工厂对象注册,在获取的时候才创建 -->
+	<bean id="myFactory" class="com.ljc.spring.factory.MyFactory"></bean>
+	
+	
+	<!--创建带有生命周期的bean; destroy-method销毁后调用的方法； init-method初始化前调用的方法；
+	构造器创建 -> before后置处理器-> init初始化 -> after后置处理器-> destory销毁 -->
+	<bean id="personController" class="com.ljc.spring.controller.PersonController"
+	 destroy-method="myDestory" init-method="myInit"></bean>
+	
+	<!-- bean的后置处理器 -->
+	<bean id="myBeanPostProcessor" class="com.ljc.spring.config.MyBeanPostProcessor"></bean>
+
+
+	
+
+
+
+</beans>

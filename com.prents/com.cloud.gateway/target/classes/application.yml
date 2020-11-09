@@ -1,0 +1,31 @@
+server:
+  port: 5007
+  
+  
+spring:
+  application:
+    name: cloud-hystrixdashboard
+  
+  cloud:    gateway:
+      discovery:        locator:          enabled: true   #开启从注册中心创建路由功能，利用微服务名进行路由      routes:      - id: pay_routh   #路由的ID，没有规定规则但要求唯一，建议配合服务名
+        #uri: http://localhost:5001   #匹配后提供的路由地址
+        uri: lb://cloud-consmer   #匹配后提供服务的路由地址
+        predicates:
+           - Path=/consmer/lb/**     #断言。路径相匹配的进行路由          
+   
+eureka:
+  client:
+    #表示能否将自己注册到eureka服务中，默认为true
+    register-with-eureka: true
+    fetch-registry: true          #是否从eureka服务端抓取已有的注册信息，设置为true，才能配合ribbon实现负载均衡
+    serviceUrl:
+      defaultZone: http://eureka6001.cn:6001/eureka/,http://eureka6002.cn:6002/eureka/
+      #defaultZone: http://127.0.0.1:6001/eureka/
+  instance:
+    instance-id: consumer5007
+    prefer-ip-address: true
+
+
+
+  
+   

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<projectDescription>
+	<name>Servers</name>
+	<comment></comment>
+	<projects>
+	</projects>
+	<buildSpec>
+	</buildSpec>
+	<natures>
+	</natures>
+	<linkedResources>
+		<link>
+			<name>spring-framework-5.2.9.RELEASE</name>
+			<type>2</type>
+			<location>D:/bspring_test/spring-framework-5.2.9.RELEASE</location>
+		</link>
+	</linkedResources>
+</projectDescription>

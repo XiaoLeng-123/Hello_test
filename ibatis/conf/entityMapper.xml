@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  
+  <!-- namespace:名称空间，用于告诉mybatis指定的实现那个接口 -->
+<mapper namespace="ibatis.EntityDao">
+
+	<!-- 默认不区分 -->
+  <select id="selectBlog" resultType="ibatis.EntityPojo">
+    select * from EntityPojo where id = #{id}
+  </select>
+
+
+
+
+	<!-- mybatis的mapper中增删改的方法不用写返回值类型 ; databaseId:表示这个sql在mysql驱动下执行-->
+
+  <!-- <select id="selectBlog" resultType="ibatis.EntityPojo" databaseId="mysql">
+    select * from EntityPojo where id = #{id}
+  </select> -->
+ 
+ 
+ <!-- type:指定为那个javabean自定义封装规则 -->
+ <resultMap type="ibatis.EntityPojo" id="EntityPojo">
+ 
+ 	
+ </resultMap>
+ 
+ 
+ 
+
+
+
+
+
+
+
+
+
+
+  
+</mapper>

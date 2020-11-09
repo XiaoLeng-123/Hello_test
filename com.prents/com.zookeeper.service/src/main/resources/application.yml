@@ -1,0 +1,9 @@
+server:
+  port: 7001
+  
+spring:
+  application:
+    name: com.zookeeper.service
+  cloud:
+    zookeeper:
+      connect-string: 192.168.18.214:2181

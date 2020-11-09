@@ -1,0 +1,37 @@
+server:
+  port: 5004
+  
+  
+spring:
+  application:
+    name: cloud-feign
+  #datasource:
+   # type: com.albaba.druid.pool.DruidDatasource
+    #driver-class-name: org.get.mm.mysql.Driver
+    #url: jdbc:mysql://192.168.5.63:3306/db2020?useUnicode=true&charterEncoding=utf-8&useSSL=false
+    #username: root
+    #password: 1234
+    
+eureka:
+  client:
+    #表示能否将自己注册到eureka服务中，默认为true
+    register-with-eureka: true
+    fetch-registry: true          #是否从eureka服务端抓取已有的注册信息，设置为true，才能配合ribbon实现负载均衡
+    serviceUrl:
+      defaultZone: http://eureka6001.cn:6001/eureka/,http://eureka6002.cn:6002/eureka/
+      #defaultZone: http://127.0.0.1:6001/eureka/
+  instance:
+    instance-id: consumer5004
+    prefer-ip-address: true
+
+
+#设置ribbon的访问超时时间   
+ribbon:  ConnectTimeout: 10000
+  ReadTimeout: 10000
+  
+
+
+#设置feign的日志监控级别输出  
+logging:  level:    #feign以什么级别的日志监控
+    com.cloud.openfeign.feign: debug
+     

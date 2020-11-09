@@ -1,0 +1,17 @@
+{"properties": [
+  {
+    "name": "spring.cloud.nacos.discvoery",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.cloud.nacos.discvoery'"
+  },
+  {
+    "name": "spring.cloud.nacos.discovery.server-add",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.cloud.nacos.discovery.server-add'"
+  },
+  {
+    "name": "service-url",
+    "type": "java.lang.String",
+    "description": "A description for 'service-url'"
+  }
+]}

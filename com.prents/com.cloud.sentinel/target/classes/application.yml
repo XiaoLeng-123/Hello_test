@@ -1,0 +1,20 @@
+server:
+  port: 9008
+  
+  
+spring:
+  application:
+    name: nacos-consumer9001
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848    #配置nacos的地址
+    sentinel:      transport:        dashboard: localhost:8080
+        port: 8719
+    
+    
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"  

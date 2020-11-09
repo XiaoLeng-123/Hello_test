@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+  
+  
+  
+<configuration>
+
+		<!-- 
+		<properties url=""></properties>  :可以应用磁盘文件路径下的
+		<properties resource=""></properties>  ： 表示类路径下地址
+		
+		 -->
+	<properties resource="dbsource.properties"></properties>
+	
+	
+	<!-- 开启自动驼峰命名映射，默认是不开启 -->
+	<settings>
+		<setting name="mapUnderscoreToCamelCase" value="true"/>
+	</settings>
+	
+	
+	<!-- typeAliases为常用类型（JavaBean）起别名 -->
+	<typeAliases>
+		<!-- typeAlias：就是为javabean起别名；别名默认就是类名（不区分大小写），配置文件就可以用别名了 -->
+		<!-- <typeAlias type="ibatis.EntityPojo" alias="entity"/>  alias ：重新起一个别名-->
+		<!-- <typeAlias type="ibatis.EntityPojo" alias=""/> -->
+		<!-- 批量起别名，name：默认就是类名；还可以在类上面用一个@Alias("entity")注解起一个别名 -->
+		<package name="ibatis"/>
+	</typeAliases>
+
+	<!-- mybatis的全局配置文件 -->
+	
+  <environments default="development">
+    <environment id="development">
+      <transactionManager type="JDBC"/>
+      <!-- 配置连接池 -->
+      <dataSource type="POOLED">
+        <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql://192.168.2.190:3306/jddb"/>
+        <property name="username" value="root"/>
+        <property name="password" value="Jiudao-123"/>
+      </dataSource>
+    </environment>
+  </environments>
+  	
+  	
+  	<databaseIdProvider type="DB_VENDOR">
+	  <property name="SQL Server" value="sqlserver"/>
+	  <property name="DB2" value="db2"/>
+	  <property name="MySQL" value="mysql" />
+	  <property name="Oracle" value="oracle" />
+	</databaseIdProvider>
+  	
+  	
+  
+  <!-- 引用我们自己的每一个接口的实现文件 -->
+  <mappers>
+  	<!-- 表示从类路径下找资源 -->
+    <mapper resource="entityMapper.xml"/>
+   
+   <!-- 
+   resource:类的根目录
+   url:磁盘文件路径
+   class:直接应用接口的全类名；可以将xml放在和接口通包目录下，且文件名与接口名保持一直
+    -->
+   <!-- 	<mapper resource="conf"/> -->
+   <!-- 将包内的映射器接口实现全部注册为映射器 ；文件名与接口名保持一直-->
+   <!--  <package name=""/> -->
+  </mappers>
+  
+
+  
+</configuration>

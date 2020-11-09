@@ -1,0 +1,24 @@
+server:
+  port: 6001
+
+spring:
+  application:
+    name: eureka-server
+  security:    user:      name: admin
+      password: 123456
+
+eureka:
+  instance:
+    hostname: eureka6001.cn
+    #hostname: 127.0.0.1
+  client:
+    register-with-eureka: false   #不注册自己
+    fetch-registry: false         #不检索自己，自己就是eureka服务
+    serviceUrl:
+      defaultZone: http://eureka6002.cn:6002/eureka/
+      #defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+  #server:
+    #enable-self-preservation: false   #默认true时则不会自动清理不可用服务
+#   eviction-interval-timer-in-ms: 40000  # 清理间隔（单位毫秒，默认是60*1000）   
+
+# 安全认证的配置  

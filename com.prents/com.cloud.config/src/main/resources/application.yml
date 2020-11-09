@@ -1,0 +1,34 @@
+server:
+  port: 8888
+  
+  
+spring:
+  application:
+    name: cloud-server
+  cloud:    config:      server:        git:          uri: git@github.com.zzyybs/springcloud-config.git
+          ###搜索目录
+          search-paths:          - springcloud-config
+      label: master  rabbitmq:    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+      
+      
+      
+      
+eureka:
+  client:
+    #表示能否将自己注册到eureka服务中，默认为true
+    register-with-eureka: true
+    fetch-registry: true          #是否从eureka服务端抓取已有的注册信息，设置为true，才能配合ribbon实现负载均衡
+    serviceUrl:
+      defaultZone: http://eureka6001.cn:6001/eureka/,http://eureka6002.cn:6002/eureka/
+      #defaultZone: http://127.0.0.1:6001/eureka/
+  instance:
+    instance-id: consumer5004
+    prefer-ip-address: true
+    
+    
+management:  endpoints:    web:      exposure:        include:        - bus-refresh
+  
+   

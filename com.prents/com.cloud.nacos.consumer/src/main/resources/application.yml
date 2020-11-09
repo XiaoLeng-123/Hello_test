@@ -1,0 +1,20 @@
+server:
+  port: 9001
+  
+  
+spring:  application:    name: nacos-consumer9001
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848    #配置nacos的地址
+    
+    
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"    
+        
+        
+service-url:
+  nacos-user-service:http://nacos-provider9002

@@ -1,0 +1,27 @@
+{"properties": [
+  {
+    "name": "swagger.enable",
+    "type": "java.lang.String",
+    "description": "A description for 'swagger.enable'"
+  },
+  {
+    "name": "swagger.application-name",
+    "type": "java.lang.String",
+    "description": "A description for 'swagger.application-name'"
+  },
+  {
+    "name": "swagger.application-version",
+    "type": "java.lang.String",
+    "description": "A description for 'swagger.application-version'"
+  },
+  {
+    "name": "swagger.application-description",
+    "type": "java.lang.String",
+    "description": "A description for 'swagger.application-description'"
+  },
+  {
+    "name": "swagger.try-host",
+    "type": "java.lang.String",
+    "description": "A description for 'swagger.try-host'"
+  }
+]}

@@ -1,0 +1,87 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+       http://www.springframework.org/schema/util
+       http://www.springframework.org/schema/util/spring-util-4.0.xsd
+       http://www.springframework.org/schema/tx
+       http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context-4.0.xsd
+       http://www.springframework.org/schema/mvc
+       http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd"> 
+       
+	   
+		<!--
+		1、基于xml的自动装配:autowire;
+		2、SPEL:spring的表达式语言;
+			字面量：${},#{}
+		3、注解创建:(id就是类名的首字母小写)；注解模式一定要导入aop包；
+			@Controller
+			@Server
+			@Repository
+			@Component
+		4、开启组件自动扫描：
+			<context:component-scan base-package="com.ljc.spring.*">
+			</context:component-scan>
+		-->
+
+	<bean id="personEntity" class="com.ljc.spring.entity.PersonEntity">
+				<property name="id" value="4"></property>
+				<property name="lastname" value="honghong"></property>
+			</bean>
+	
+	<!-- autowire：自动配置
+		default：不自动装配
+		byName：按照名字赋值
+		byType：按照类型赋值
+		conStructor：使用构造器赋值
+	
+	 -->
+	<bean id="depementEntity" class="com.ljc.spring.entity.DepementEntity" autowire="byName">
+	
+	</bean>
+
+
+
+	<!-- 
+	  通过注解添加:
+		@Controller
+		@Server
+		@Repository
+		@Component
+	 -->
+	<!-- 开启注解式配置;开启组件自动扫描 -->
+	<context:component-scan base-package="com.ljc.spring.*">
+		<!-- 扫描时可以排除一些不要的组件 
+			type="annotation":按照注解进行排除；
+			type="assignable" 指定摸个具体的类
+			type="aspectj" 后来aspectj表达式
+			type="custom"  自定义一个TypeFilter；自己写代码决定哪些使用
+			type="regex"   自定义正则表达式
+			expression：注解的全类名
+		-->
+		<context:exclude-filter type="annotation" 
+		expression="org.springframework.stereotype.Repository"/>
+		
+	</context:component-scan>
+	
+	
+	<!-- 指定只扫描哪些组件 -->
+	<!-- <context:component-scan base-package="" use-default-filters="false">
+		
+		<context:include-filter type="annotation" 
+		expression="org.springframework.stereotype.Repository"/>
+	
+	</context:component-scan> -->
+	
+	
+	
+	
+</beans>
